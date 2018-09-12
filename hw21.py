@@ -7,7 +7,7 @@ def isint(value):
 
 
 def try_int(str):
-  str = str.strip(' ')
+  str = str.strip()
   if isint(str):
     return int(str)
   else:
@@ -46,8 +46,6 @@ def create_shop_list(cook_book):
 
 
 def get_reciept(file):
-  counter = 0
-  dish = ''
   keys = ['ingridient_name', 'quantity', 'measure']
 
   with open(file) as f:
@@ -55,7 +53,7 @@ def get_reciept(file):
     dish = ''
     flag_dish = False #true - прочитали блюдо, false - прочитали рецепт
     for line in f:
-      line = line.strip('\n').strip().lower()
+      line = line.strip().lower()
       if not line: #пустая строка
         dish = ''
         flag_dish = False
@@ -65,8 +63,8 @@ def get_reciept(file):
           flag_dish = True
           cook_book[dish] = []
         else:
-          str = list(map(try_int, line.split('|')))
-          cook_book[dish].append(dict(zip(keys, str)))
+          tmp_str = list(map(try_int, line.split('|')))
+          cook_book[dish].append(dict(zip(keys, tmp_str)))
 
   return cook_book
 
